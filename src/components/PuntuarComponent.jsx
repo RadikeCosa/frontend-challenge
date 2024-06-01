@@ -13,7 +13,23 @@ const PuntuarComponent = () => {
   const handleGeneroChange = (event) => setGenero(event.target.value);
   const handleAnoChange = (event) => setAno(event.target.value);
   const handleRatingChange = (event) => setRating(event.target.value);
-
+  const getGenres = (item) => {
+    let genres = [];
+    // Iterar sobre las propiedades del objeto y agregar los géneros con valor 1 a la lista
+    Object.keys(item).forEach((key) => {
+      if (
+        item[key] === "1" &&
+        key !== "id" &&
+        key !== "Name" &&
+        key !== "Release Date" &&
+        key !== "avg_rating"
+      ) {
+        genres.push(key);
+      }
+    });
+    // Devolver los géneros como una cadena separada por comas
+    return genres.join(", ");
+  };
   const fetchData = (url) => {
     setLoading(true);
     fetch(url)
@@ -126,6 +142,7 @@ const PuntuarComponent = () => {
               <th>Nombre</th>
               <th>Release Date</th>
               <th>Avg Rating</th>
+              <th>Género</th>
             </tr>
           </thead>
           <tbody>
@@ -134,6 +151,7 @@ const PuntuarComponent = () => {
                 <td>{item.Name}</td>
                 <td>{item["Release Date"]}</td>
                 <td>{item.avg_rating}</td>
+                <td>{getGenres(item)}</td>
               </tr>
             ))}
           </tbody>
