@@ -16,7 +16,7 @@ const LoginForm = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/login", {
+      const response = await axios.post("http://localhost:3000/api/login", {
         user: user,
         password: password,
       });
@@ -32,8 +32,8 @@ const LoginForm = () => {
 
   return (
     <section>
-      <p>Ingresa a tu cuenta</p>
       <form className="form" onSubmit={handleSubmit}>
+        <legend>Ingresa a tu cuenta</legend>
         <input
           type="text"
           placeholder="usuario"
