@@ -25,7 +25,8 @@ const LoginForm = () => {
         password: password,
       });
       const userData = response.data;
-      login(userData); // Almacena los datos del usuario en el contexto
+      console.log(response.data.user);
+      login(userData.user); // Almacena los datos del usuario en el contexto
       // Redirigir al dashboard después de un inicio de sesión exitoso
       navigate("/dashboard");
     } catch (error) {
