@@ -1,17 +1,18 @@
-import LoginForm from "./components/LoginForm";
-import Dashboard from "./components/Dashboard";
+import LoginForm from "./auth/LoginForm";
+import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
-    <div>
+    <AuthProvider>
       <Router>
         <Routes>
           <Route path="/" element={<LoginForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
       </Router>
-    </div>
+    </AuthProvider>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/puntuar.css";
 
 const PuntuarComponent = () => {
   const [data, setData] = useState(null);
@@ -145,7 +146,7 @@ const PuntuarComponent = () => {
               <th>Género</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="table-body">
             {data.map((item) => (
               <tr key={item.id}>
                 <td>{item.Name}</td>

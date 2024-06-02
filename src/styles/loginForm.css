@@ -1,0 +1,76 @@
+.form-container {
+  background: rgba(0, 12, 31, 1);
+
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form {
+  width: 388px;
+  height: 482px;
+  background-color: transparent;
+}
+.form-title {
+  font-family: Nunito;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 62.74px;
+  text-align: left;
+  width: 247px;
+  height: 63px;
+}
+.title-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: Fixed (388px) px;
+  height: Fixed (75px) px;
+  gap: 10px;
+  opacity: 0px;
+}
+.subtitle-content {
+  height: 25px;
+  margin-top: 33px;
+}
+.subtitle-content p {
+  font-family: Nunito;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
+  color: rgba(254, 254, 254, 1);
+  text-align: center;
+  width: 100%;
+  margin: 0;
+}
+.form-input {
+  width: 100%;
+  height: 40px;
+  font-family: Nunito;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24.55px;
+  text-align: left;
+  background-color: transparent;
+  border: 0px;
+  color: white;
+  border-bottom: 1px solid white;
+}
+.form-input.user {
+  margin-top: 80px;
+}
+.form-input.password {
+  height: 40px px;
+  margin-top: 80px;
+  margin-bottom: 18px;
+}
+.form-button {
+  width: 100%;
+  background: rgba(3, 133, 255, 1);
+  color: white;
+  height: 62px;
+  margin-top: 40px;
+  border-radius: 2px 0px 0px 0px;
+  opacity: 0px;
+}
