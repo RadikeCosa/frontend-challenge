@@ -5,7 +5,9 @@ import SelectGenreComponent from "./SelectGenreComponent";
 import SearchButtonComponent from "./SearchButtonComponent";
 import SelectYearComponent from "./SelectYearComponent";
 import SelectScoreComponent from "./SelectScoreComponent";
+import SelectNameComponent from "./selectNameComponent";
 import { useState } from "react";
+
 import axios from "axios";
 
 const Selects = () => {
@@ -14,7 +16,7 @@ const Selects = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState("");
-
+  const [name, setName] = useState("");
   const scores = ["0", "1", "2", "3", "4", "5"];
 
   const genres = [
@@ -52,6 +54,12 @@ const Selects = () => {
     setYear(event.target.value);
     setGenero(""); // Resetear el género cuando se cambia el año
   };
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+    setGenero("");
+    setYear("");
+    setScore("");
+  };
 
   const handleGenreSearch = async () => {
     if (!genero) {
@@ -61,6 +69,21 @@ const Selects = () => {
     setLoading(true);
     const url = `http://localhost:3000/api/peliculas/genre/${genero}`;
 
+    try {
+      const response = await axios.get(url);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleNameSearch = async () => {
+    setLoading(true);
+    // Concatena el nombre en la URL para la solicitud GET
+    const url = `http://localhost:3000/api/peliculas/name/${name}`;
+    console.log(name);
     try {
       const response = await axios.get(url);
       setData(response.data);
@@ -126,11 +149,7 @@ const Selects = () => {
           />
         </div>
         <div className="col-md-3 mb-3">
-          <SelectGenreComponent
-            genero={genero}
-            handleGeneroChange={handleGeneroChange}
-            genres={genres}
-          />
+          <SelectNameComponent name={name} handleChange={handleNameChange} />
         </div>
         <div className="col-md-3 mb-3">
           <SelectYearComponent
@@ -144,9 +163,11 @@ const Selects = () => {
         handleGenreSearch={handleGenreSearch}
         handleYearSearch={handleYearSearch}
         handleScoreSearch={handleScoreSearch}
+        handleNameSearch={handleNameSearch}
         genero={genero}
         year={year}
         score={score}
+        name={name}
       />
 
       {loading ? (

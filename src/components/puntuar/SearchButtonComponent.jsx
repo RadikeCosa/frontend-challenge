@@ -15,7 +15,8 @@ const SearchButtonComponent = ({
       handleYearSearch();
     } else if (score) {
       handleScoreSearch();
-    } else if (name) {
+    } else if (name || name === "") {
+      // Permitir la búsqueda por nombre si hay un valor o si el campo está vacío
       handleNameSearch();
     } else {
       console.warn(
