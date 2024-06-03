@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import AnalisisComponent from "../components/AnalisisComponent";
-import PuntuarComponent from "../components/PuntuarComponent";
+import PuntuarComponent from "../components/puntuar/PuntuarComponent";
 import Sidebar from "../components/sidebar/Sidebar";
 import "../styles/dashboard.css";
 
@@ -13,8 +13,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard-container">
       <Sidebar setActiveComponent={setActiveComponent} />
-      {activeComponent === "puntuar" && <PuntuarComponent />}
-      {activeComponent === "analisis" && <AnalisisComponent />}
+      <div className="main-container">
+        {activeComponent === "puntuar" && <PuntuarComponent />}
+        {activeComponent === "analisis" && <AnalisisComponent />}
+      </div>
     </div>
   );
 };

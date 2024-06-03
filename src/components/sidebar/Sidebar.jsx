@@ -2,7 +2,7 @@
 import { useAuth } from "../../context/AuthContext";
 import "../../styles/sidebar.css";
 import SidebarElement from "./SidebarElement";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import puntuarOpen from "../../assets/puntuarOpen.svg";
 import logoutOpen from "../../assets/logoutOpen.svg";
@@ -22,12 +22,21 @@ const Sidebar = () => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(false);
+    }, 2000);
+
+    // Cleanup function to clear the timer if the component unmounts
+    return () => clearTimeout(timer);
+  }, []);
+
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
     console.log("toggle");
   };
 
-  const sidebarWidth = isOpen ? "336px" : "150px";
+  const sidebarWidth = isOpen ? "336px" : "100px";
   const iconPuntuar = isOpen ? puntuarOpen : puntuarClose;
   const iconAnalisis = isOpen ? analisisOpen : analisisClose;
   const iconConfiguracion = isOpen ? configOpen : configClose;

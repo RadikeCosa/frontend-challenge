@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../styles/puntuar.css";
+import "../../styles/puntuar.css";
+import PuntuarTable from "./PuntuarTable";
 
 const PuntuarComponent = () => {
   const [data, setData] = useState(null);
@@ -14,23 +15,7 @@ const PuntuarComponent = () => {
   const handleGeneroChange = (event) => setGenero(event.target.value);
   const handleAnoChange = (event) => setAno(event.target.value);
   const handleRatingChange = (event) => setRating(event.target.value);
-  const getGenres = (item) => {
-    let genres = [];
-    // Iterar sobre las propiedades del objeto y agregar los géneros con valor 1 a la lista
-    Object.keys(item).forEach((key) => {
-      if (
-        item[key] === "1" &&
-        key !== "id" &&
-        key !== "Name" &&
-        key !== "Release Date" &&
-        key !== "avg_rating"
-      ) {
-        genres.push(key);
-      }
-    });
-    // Devolver los géneros como una cadena separada por comas
-    return genres.join(", ");
-  };
+
   const fetchData = (url) => {
     setLoading(true);
     fetch(url)
@@ -137,26 +122,7 @@ const PuntuarComponent = () => {
       {loading ? (
         <div className="mt-3">Cargando...</div>
       ) : data ? (
-        <table className="table table-striped mt-3">
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Release Date</th>
-              <th>Avg Rating</th>
-              <th>Género</th>
-            </tr>
-          </thead>
-          <tbody className="table-body">
-            {data.map((item) => (
-              <tr key={item.id}>
-                <td>{item.Name}</td>
-                <td>{item["Release Date"]}</td>
-                <td>{item.avg_rating}</td>
-                <td>{getGenres(item)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <PuntuarTable data={data} />
       ) : (
         <div className="mt-3">No hay resultados</div>
       )}

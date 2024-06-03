@@ -1,3 +1,8 @@
 .dashboard-container {
   display: flex;
+  position: relative; /* Agrega esta clase */
+}
+.main-container {
+  width: 60%;
+  margin: auto;
 }

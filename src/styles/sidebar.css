@@ -1,6 +1,9 @@
 .sidebar-container {
   /*   width: 336px;
  */
+  position: fixed; /* Agrega esta clase */
+  top: 0;
+  left: 0;
   height: 951px;
   padding: 20px 0px 0px 0px;
   gap: 0px;
