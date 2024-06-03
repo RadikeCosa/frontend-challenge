@@ -11,11 +11,13 @@ import "../styles/dashboard.css";
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState("puntuar");
   const { user } = useAuth();
+  console.log(user.id);
 
   return (
     <div className="dashboard-container">
       <Sidebar setActiveComponent={setActiveComponent} />
       <div className="main-container">
+        <p>Bienvenido {user["Full Name"]}</p>
         {activeComponent === "puntuar" && <Selects />}
         {activeComponent === "analisis" && <AnalisisComponent />}
       </div>
