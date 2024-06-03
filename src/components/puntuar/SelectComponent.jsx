@@ -15,8 +15,8 @@ const SelectComponent = ({
           >
             <option value="">Seleccionar género</option>
             {genres.map((genre) => (
-              <option key={genre} value={genre}>
-                {genre}
+              <option key={genre.id} value={genre.name}>
+                {genre.name}
               </option>
             ))}
           </select>
