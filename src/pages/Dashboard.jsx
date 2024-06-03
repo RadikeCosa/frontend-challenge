@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
 import AnalisisComponent from "../components/AnalisisComponent";
-import PuntuarComponent from "../components/puntuar/PuntuarComponent";
+
 import Sidebar from "../components/sidebar/Sidebar";
 import Selects from "../components/puntuar/Selects";
 import "../styles/dashboard.css";
@@ -16,9 +16,8 @@ const Dashboard = () => {
     <div className="dashboard-container">
       <Sidebar setActiveComponent={setActiveComponent} />
       <div className="main-container">
-        {activeComponent === "puntuar" && <PuntuarComponent />}
+        {activeComponent === "puntuar" && <Selects />}
         {activeComponent === "analisis" && <AnalisisComponent />}
-        <Selects />
       </div>
     </div>
   );

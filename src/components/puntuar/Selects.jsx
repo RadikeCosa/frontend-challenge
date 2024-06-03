@@ -4,6 +4,7 @@ import PuntuarTable from "./PuntuarTable";
 import SelectGenreComponent from "./SelectGenreComponent";
 import SearchButtonComponent from "./SearchButtonComponent";
 import SelectYearComponent from "./SelectYearComponent";
+import SelectScoreComponent from "./SelectScoreComponent";
 import { useState } from "react";
 import axios from "axios";
 
@@ -12,6 +13,9 @@ const Selects = () => {
   const [year, setYear] = useState("");
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [score, setScore] = useState("");
+
+  const scores = ["0", "1", "2", "3", "4", "5"];
 
   const genres = [
     { id: 1, name: "Animation" },
@@ -38,6 +42,11 @@ const Selects = () => {
     setGenero(event.target.value);
     setYear(""); // Resetear el año cuando se cambia el género
   };
+  const handleScoreChange = (event) => {
+    setScore(event.target.value);
+    setYear("");
+    setGenero("");
+  };
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
@@ -52,6 +61,23 @@ const Selects = () => {
     setLoading(true);
     const url = `http://localhost:3000/api/peliculas/genre/${genero}`;
 
+    try {
+      const response = await axios.get(url);
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleScoreSearch = async () => {
+    if (!score) {
+      console.warn("Score no seleccionado");
+      return;
+    }
+    setLoading(true);
+    const url = `http://localhost:3000/api/peliculas/rating/${score}`;
     try {
       const response = await axios.get(url);
       setData(response.data);
@@ -85,14 +111,28 @@ const Selects = () => {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-6">
+        <div className="col-md-3 mb-3">
           <SelectGenreComponent
             genero={genero}
             handleGeneroChange={handleGeneroChange}
             genres={genres}
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-md-3 mb-3">
+          <SelectScoreComponent
+            score={score}
+            handleScoreChange={handleScoreChange}
+            scores={scores}
+          />
+        </div>
+        <div className="col-md-3 mb-3">
+          <SelectGenreComponent
+            genero={genero}
+            handleGeneroChange={handleGeneroChange}
+            genres={genres}
+          />
+        </div>
+        <div className="col-md-3 mb-3">
           <SelectYearComponent
             year={year}
             handleYearChange={handleYearChange}
@@ -103,9 +143,12 @@ const Selects = () => {
       <SearchButtonComponent
         handleGenreSearch={handleGenreSearch}
         handleYearSearch={handleYearSearch}
+        handleScoreSearch={handleScoreSearch}
         genero={genero}
         year={year}
+        score={score}
       />
+
       {loading ? (
         <div className="mt-3">Cargando...</div>
       ) : data ? (

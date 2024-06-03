@@ -3,7 +3,7 @@
 const SelectYearComponent = ({ year, handleYearChange, years }) => {
   return (
     <div className="row">
-      <div className="col-md-3 mb-3">
+      <div>
         <select
           className="form-control"
           value={year}
