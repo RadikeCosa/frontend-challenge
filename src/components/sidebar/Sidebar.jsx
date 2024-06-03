@@ -18,7 +18,7 @@ import analisisClose from "../../assets/analisisClose.svg";
 import configClose from "../../assets/configClose.svg";
 import sidebarClose from "../../assets/sidebarClose.svg";
 
-const Sidebar = () => {
+const Sidebar = ({ setActiveComponent }) => {
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(true);
 
@@ -50,8 +50,14 @@ const Sidebar = () => {
         <SidebarElement icon={iconMovieLogo} />
       </div>
       <div className="links">
-        <SidebarElement icon={iconPuntuar} />
-        <SidebarElement icon={iconAnalisis} />
+        <SidebarElement
+          icon={iconPuntuar}
+          handleClick={() => setActiveComponent("puntuar")}
+        />
+        <SidebarElement
+          icon={iconAnalisis}
+          handleClick={() => setActiveComponent("analisis")}
+        />
         <SidebarElement icon={iconConfiguracion} />
         <hr />
       </div>
