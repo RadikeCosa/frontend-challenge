@@ -7,6 +7,7 @@ import PuntuarComponent from "../components/puntuar/PuntuarComponent";
 import Sidebar from "../components/sidebar/Sidebar";
 import Selects from "../components/puntuar/Selects";
 import "../styles/dashboard.css";
+
 const Dashboard = () => {
   const [activeComponent, setActiveComponent] = useState("puntuar");
   const { user } = useAuth();

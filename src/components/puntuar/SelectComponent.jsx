@@ -1,9 +1,4 @@
-const SelectComponent = ({
-  genero,
-  handleGeneroChange,
-  handleSearch,
-  genres,
-}) => {
+const SelectComponent = ({ genero, handleGeneroChange, genres }) => {
   return (
     <div>
       <div className="row">
@@ -20,16 +15,6 @@ const SelectComponent = ({
               </option>
             ))}
           </select>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-3">
-          <button
-            className="btn btn-primary btn-block"
-            onClick={() => handleSearch()}
-          >
-            Buscar por género
-          </button>
         </div>
       </div>
     </div>

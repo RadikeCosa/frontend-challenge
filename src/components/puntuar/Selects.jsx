@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/puntuar.css";
 import PuntuarTable from "./PuntuarTable";
 import SelectComponent from "./SelectComponent";
+import SearchButtonComponent from "./SearchButtonComponent";
 
 const Selects = ({
   data,
@@ -16,9 +17,10 @@ const Selects = ({
       <SelectComponent
         genero={genero}
         handleGeneroChange={handleGeneroChange}
-        handleSearch={handleSearch}
         genres={genres}
       />
+
+      <SearchButtonComponent handleSearch={handleSearch} />
       {loading ? (
         <div className="mt-3">Cargando...</div>
       ) : data ? (
