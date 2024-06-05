@@ -1,14 +1,17 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/puntuar.css";
 import PuntuarTable from "./PuntuarTable";
-import SelectGenreComponent from "./SelectGenreComponent";
 import SearchButtonComponent from "./SearchButtonComponent";
-import SelectYearComponent from "./SelectYearComponent";
-import SelectScoreComponent from "./SelectScoreComponent";
-import SelectNameComponent from "./selectNameComponent";
-import { useState } from "react";
 
-import axios from "axios";
+import FlexibleSelectComponent from "./FlexibleSelectComponent";
+
+import { useState } from "react";
+import {
+  fetchByGenre,
+  fetchByName,
+  fetchByScore,
+  fetchByYear,
+} from "../../services/api";
 
 const Selects = () => {
   const [genero, setGenero] = useState("");
@@ -39,10 +42,9 @@ const Selects = () => {
     { id: 8, year: "1982" },
     { id: 9, year: "1990" },
   ];
-
   const handleGeneroChange = (event) => {
     setGenero(event.target.value);
-    setYear(""); // Resetear el año cuando se cambia el género
+    setYear("");
   };
   const handleScoreChange = (event) => {
     setScore(event.target.value);
@@ -52,7 +54,9 @@ const Selects = () => {
 
   const handleYearChange = (event) => {
     setYear(event.target.value);
-    setGenero(""); // Resetear el género cuando se cambia el año
+    setGenero("");
+    setScore("");
+    setName("");
   };
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -67,45 +71,41 @@ const Selects = () => {
       return;
     }
     setLoading(true);
-    const url = `http://localhost:3000/api/peliculas/genre/${genero}`;
 
     try {
-      const response = await axios.get(url);
-      setData(response.data);
+      const data = await fetchByGenre(genero);
+      setData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setData(null);
     } finally {
       setLoading(false);
     }
   };
+
   const handleNameSearch = async () => {
     setLoading(true);
-    // Concatena el nombre en la URL para la solicitud GET
-    const url = `http://localhost:3000/api/peliculas/name/${name}`;
-    console.log(name);
+
     try {
-      const response = await axios.get(url);
-      setData(response.data);
+      const data = await fetchByName(name);
+      setData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setData(null);
     } finally {
       setLoading(false);
     }
   };
+
   const handleScoreSearch = async () => {
     if (!score) {
       console.warn("Score no seleccionado");
       return;
     }
     setLoading(true);
-    const url = `http://localhost:3000/api/peliculas/rating/${score}`;
+
     try {
-      const response = await axios.get(url);
-      setData(response.data);
+      const data = await fetchByScore(score);
+      setData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setData(null);
     } finally {
       setLoading(false);
@@ -118,13 +118,11 @@ const Selects = () => {
       return;
     }
     setLoading(true);
-    const url = `http://localhost:3000/api/peliculas/ano/${year}`;
 
     try {
-      const response = await axios.get(url);
-      setData(response.data);
+      const data = await fetchByYear(year);
+      setData(data);
     } catch (error) {
-      console.error("Error fetching data:", error);
       setData(null);
     } finally {
       setLoading(false);
@@ -135,27 +133,35 @@ const Selects = () => {
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-3 mb-3">
-          <SelectGenreComponent
-            genero={genero}
-            handleGeneroChange={handleGeneroChange}
-            genres={genres}
+          <FlexibleSelectComponent
+            value={genero}
+            handleChange={handleGeneroChange}
+            options={genres}
+            placeholder="Seleccionar género"
           />
         </div>
         <div className="col-md-3 mb-3">
-          <SelectScoreComponent
-            score={score}
-            handleScoreChange={handleScoreChange}
-            scores={scores}
+          <FlexibleSelectComponent
+            value={score}
+            handleChange={handleScoreChange}
+            options={scores.map((score, index) => ({ id: index, name: score }))}
+            placeholder="Seleccionar puntaje"
           />
         </div>
         <div className="col-md-3 mb-3">
-          <SelectNameComponent name={name} handleChange={handleNameChange} />
+          <FlexibleSelectComponent
+            value={name}
+            handleChange={handleNameChange}
+            placeholder="Buscar por nombre"
+            type="input"
+          />
         </div>
         <div className="col-md-3 mb-3">
-          <SelectYearComponent
-            year={year}
-            handleYearChange={handleYearChange}
-            years={years}
+          <FlexibleSelectComponent
+            value={year}
+            handleChange={handleYearChange}
+            options={years}
+            placeholder="Seleccionar año"
           />
         </div>
       </div>
