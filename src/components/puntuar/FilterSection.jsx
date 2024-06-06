@@ -1,6 +1,6 @@
 import FlexibleSelectComponent from "../../components/puntuar/FlexibleSelectComponent";
-import { genres, scores, years } from "../../helpers/useSearch";
-
+import { scores } from "../../helpers/useSearch";
+import { years, genres } from "../../helpers/movieFiltersData";
 const FilterSection = ({
   genero,
   score,
