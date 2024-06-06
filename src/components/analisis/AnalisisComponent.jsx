@@ -1,8 +1,10 @@
 import LineChart from "./LineChart";
 import useGenreData from "./UseGenreData";
+import Histograma from "./Histograma";
 
 const AnalisisComponent = () => {
-  const { data, genres, selectedGenre, setSelectedGenre } = useGenreData();
+  const { data, data2, genres, selectedGenre, setSelectedGenre } =
+    useGenreData();
 
   const handleGenreChange = (event) => {
     setSelectedGenre(event.target.value);
@@ -25,6 +27,7 @@ const AnalisisComponent = () => {
         </select>
       </div>
       <LineChart data={data} />
+      <Histograma datos={data2} />
     </div>
   );
 };
