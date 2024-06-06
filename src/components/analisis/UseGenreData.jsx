@@ -5,6 +5,7 @@ const useGenreData = () => {
   const [data, setData] = useState([]);
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("");
+  const [data2, setData2] = useState({});
 
   useEffect(() => {
     const fetchGenres = async () => {
@@ -13,7 +14,7 @@ const useGenreData = () => {
         const result = response.data;
         setGenres(result);
         if (result.length > 0) {
-          setSelectedGenre(result[0].name); // Set default selected genre
+          setSelectedGenre(result[0].name);
         }
       } catch (error) {
         console.error("Error fetching genres", error);
@@ -30,7 +31,15 @@ const useGenreData = () => {
       try {
         const response = await getGenreAnalysis(selectedGenre);
         const result = response.data;
-        setData(result);
+
+        // Aquí accedes a averageRatingByYear si existe en result
+        const { averageRatingByYear, votosPorRating } = result;
+        setData(averageRatingByYear);
+        setData2(votosPorRating);
+        if (averageRatingByYear && Array.isArray(averageRatingByYear)) {
+          console.log(votosPorRating);
+          // Puedes hacer lo que necesites con el array averageRatingByYear
+        }
       } catch (error) {
         console.error("Error fetching the data", error);
       }
@@ -39,7 +48,7 @@ const useGenreData = () => {
     fetchData();
   }, [selectedGenre]);
 
-  return { data, genres, selectedGenre, setSelectedGenre };
+  return { data, data2, genres, selectedGenre, setSelectedGenre };
 };
 
 export default useGenreData;

@@ -22,8 +22,11 @@ export const getGenres = () => {
 };
 
 export const getGenreAnalysis = (genre) => {
-  return axios.get(`http://localhost:3000/api/peliculas/analisis/${genre}`);
+  return axios.get(
+    `http://localhost:3000/api/peliculas/analisisvotosyrating/${genre}`
+  );
 };
+
 const API_URL = "http://localhost:3000/api/peliculas";
 
 export const fetchByGenre = async (genre) => {
