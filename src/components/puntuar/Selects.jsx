@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/puntuar.css";
-import PuntuarTable from "./PuntuarTable";
 import SearchButtonComponent from "./SearchButtonComponent";
 import Results from "./Results.jsx";
-import FlexibleSelectComponent from "./FlexibleSelectComponent";
-import useSearch, { scores, genres, years } from "../../helpers/useSearch"; // Importamos el hook y las constantes
+
+import useSearch from "../../helpers/useSearch";
+import FilterSection from "./FilterSection.jsx";
 
 const Selects = () => {
   const {
@@ -26,40 +26,18 @@ const Selects = () => {
 
   return (
     <div className="container mt-5">
-      <div className="row">
-        <div className="col-md-3 mb-3">
-          <FlexibleSelectComponent
-            value={genero}
-            handleChange={handleGeneroChange}
-            options={genres}
-            placeholder="Seleccionar género"
-          />
-        </div>
-        <div className="col-md-3 mb-3">
-          <FlexibleSelectComponent
-            value={score}
-            handleChange={handleScoreChange}
-            options={scores.map((score, index) => ({ id: index, name: score }))}
-            placeholder="Seleccionar puntaje"
-          />
-        </div>
-        <div className="col-md-3 mb-3">
-          <FlexibleSelectComponent
-            value={name}
-            handleChange={handleNameChange}
-            placeholder="Buscar por nombre"
-            type="input"
-          />
-        </div>
-        <div className="col-md-3 mb-3">
-          <FlexibleSelectComponent
-            value={year}
-            handleChange={handleYearChange}
-            options={years}
-            placeholder="Seleccionar año"
-          />
-        </div>
-      </div>
+      {/* Utilizamos el componente FilterSection para la sección de filtros */}
+      <FilterSection
+        genero={genero}
+        score={score}
+        name={name}
+        year={year}
+        handleGeneroChange={handleGeneroChange}
+        handleScoreChange={handleScoreChange}
+        handleNameChange={handleNameChange}
+        handleYearChange={handleYearChange}
+      />
+
       <SearchButtonComponent
         handleGenreSearch={handleGenreSearch}
         handleYearSearch={handleYearSearch}
