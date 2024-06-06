@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../styles/puntuar.css";
 import PuntuarTable from "./PuntuarTable";
 import SearchButtonComponent from "./SearchButtonComponent";
-
+import Results from "./Results.jsx";
 import FlexibleSelectComponent from "./FlexibleSelectComponent";
 import useSearch, { scores, genres, years } from "../../helpers/useSearch"; // Importamos el hook y las constantes
 
@@ -71,13 +71,7 @@ const Selects = () => {
         name={name}
       />
 
-      {loading ? (
-        <div className="mt-3">Cargando...</div>
-      ) : data ? (
-        <PuntuarTable data={data} />
-      ) : (
-        <div className="mt-3">No hay resultados</div>
-      )}
+      <Results loading={loading} data={data} />
     </div>
   );
 };
