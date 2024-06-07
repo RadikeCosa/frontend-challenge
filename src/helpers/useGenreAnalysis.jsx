@@ -4,27 +4,34 @@ import { getGenreAnalysis } from "../services/api";
 const useGenreAnalysis = (selectedGenre) => {
   const [data, setData] = useState([]);
   const [data2, setData2] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!selectedGenre) return;
 
     const fetchData = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await getGenreAnalysis(selectedGenre);
-        const result = response.data;
+        console.log("API response:", response); // Log para ver la respuesta completa
+        const { averageRatingByYear, votosPorRating } = response;
 
-        const { averageRatingByYear, votosPorRating } = result;
         setData(averageRatingByYear);
         setData2(votosPorRating);
       } catch (error) {
         console.error("Error fetching the data", error);
+        setError(error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
   }, [selectedGenre]);
 
-  return { data, data2 };
+  return { data, data2, loading, error };
 };
 
 export default useGenreAnalysis;
