@@ -54,10 +54,6 @@ export const checkVote = (userId, movieId) => {
   return axios.get(`http://localhost:3000/api/checkvote/${userId}/${movieId}`);
 };
 
-export const getGenreAnalysis = (genre) => {
-  return apiRequest("get", API.genreAnalysis(genre));
-};
-
 const API_URL = "http://localhost:3000/api/peliculas";
 
 export const fetchByGenre = async (genre) => {
@@ -121,4 +117,8 @@ export const fetchYears = async () => {
     // Handle errors gracefully, e.g., display an error message to the user
     return []; // Return an empty array in case of error
   }
+};
+
+export const getGenreAnalysis = (genre) => {
+  return apiRequest("get", API.genreAnalysis(genre));
 };
