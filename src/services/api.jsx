@@ -3,17 +3,7 @@ import axios from "axios";
 // Configuración de la API
 const API = {
   baseURL: "http://localhost:3000/api",
-  vote: "/voto",
-  checkVote: (userId, movieId) => `/checkvote/${userId}/${movieId}`,
-  genres: "/getgenres",
   genreAnalysis: (genre) => `/peliculas/analisisvotosyrating/${genre}`,
-  movies: {
-    byGenre: (genre) => `/peliculas/genre/${genre}`,
-    byName: (name) => `/peliculas/name/${name}`,
-    byScore: (score) => `/peliculas/rating/${score}`,
-    byYear: (year) => `/peliculas/ano/${year}`,
-  },
-  getReleaseYears: "/peliculas/anos",
 };
 
 // Función auxiliar para realizar solicitudes HTTP
@@ -44,9 +34,8 @@ const apiRequest = async (method, url, data = null) => {
   }
 };
 
-// Funciones de la API
 export const registerVote = (userId, movieId, rating) => {
-  return apiRequest("post", API.vote, {
+  return axios.post(`http://localhost:3000/api/voto`, {
     user_id: userId,
     movie_id: movieId,
     rating: rating,
@@ -54,7 +43,7 @@ export const registerVote = (userId, movieId, rating) => {
 };
 
 export const updateVote = (userId, movieId, rating) => {
-  return apiRequest("put", API.vote, {
+  return axios.put(`http://localhost:3000/api/voto`, {
     user_id: userId,
     movie_id: movieId,
     rating: rating,
@@ -62,42 +51,55 @@ export const updateVote = (userId, movieId, rating) => {
 };
 
 export const checkVote = (userId, movieId) => {
-  return apiRequest("get", API.checkVote(userId, movieId));
+  return axios.get(`http://localhost:3000/api/checkvote/${userId}/${movieId}`);
 };
 
 export const getGenres = () => {
-  return apiRequest("get", API.genres);
+  return axios.get("http://localhost:3000/api/getgenres");
 };
 
 export const getGenreAnalysis = (genre) => {
   return apiRequest("get", API.genreAnalysis(genre));
 };
 
-export const fetchByGenre = (genre) => {
-  return apiRequest("get", API.movies.byGenre(genre));
+const API_URL = "http://localhost:3000/api/peliculas";
+
+export const fetchByGenre = async (genre) => {
+  try {
+    const response = await axios.get(`${API_URL}/genre/${genre}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data by genre:", error);
+    throw error;
+  }
 };
 
-export const fetchByName = (name) => {
-  return apiRequest("get", API.movies.byName(name));
+export const fetchByName = async (name) => {
+  try {
+    const response = await axios.get(`${API_URL}/name/${name}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data by name:", error);
+    throw error;
+  }
 };
 
-export const fetchByScore = (score) => {
-  return apiRequest("get", API.movies.byScore(score));
+export const fetchByScore = async (score) => {
+  try {
+    const response = await axios.get(`${API_URL}/rating/${score}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data by score:", error);
+    throw error;
+  }
 };
 
-export const fetchByYear = (year) => {
-  return apiRequest("get", API.movies.byYear(year));
+export const fetchByYear = async (year) => {
+  try {
+    const response = await axios.get(`${API_URL}/ano/${year}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data by year:", error);
+    throw error;
+  }
 };
-
-export const fetchYears = () => {
-  return apiRequest("get", API.getReleaseYears);
-};
-
-// Probar la función getGenres
-getGenres()
-  .then((genres) => {
-    console.log("Genres:", genres);
-  })
-  .catch((error) => {
-    console.error("Failed to fetch genres:", error);
-  });
