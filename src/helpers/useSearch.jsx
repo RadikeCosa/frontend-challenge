@@ -5,8 +5,6 @@ import {
   fetchByScore,
   fetchByYear,
 } from "../services/api";
-import { genres, years } from "./movieFiltersData";
-export const scores = ["0", "1", "2", "3", "4", "5"];
 
 const useSearch = () => {
   const [genero, setGenero] = useState("");
@@ -88,7 +86,6 @@ const useSearch = () => {
     handleNameSearch,
     handleScoreSearch,
     handleYearSearch,
-    genres,
   };
 };
 

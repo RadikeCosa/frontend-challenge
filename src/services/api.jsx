@@ -54,14 +54,6 @@ export const checkVote = (userId, movieId) => {
   return axios.get(`http://localhost:3000/api/checkvote/${userId}/${movieId}`);
 };
 
-export const getGenres = () => {
-  return axios.get("http://localhost:3000/api/getgenres");
-};
-
-export const getGenreAnalysis = (genre) => {
-  return apiRequest("get", API.genreAnalysis(genre));
-};
-
 const API_URL = "http://localhost:3000/api/peliculas";
 
 export const fetchByGenre = async (genre) => {
@@ -102,4 +94,31 @@ export const fetchByYear = async (year) => {
     console.error("Error fetching data by year:", error);
     throw error;
   }
+};
+
+export const getGenres = async () => {
+  try {
+    const response = await axios.get("http://localhost:3000/api/getgenres");
+    return response.data; // Assuming the API response contains the genres data
+  } catch (error) {
+    console.error("Error fetching genres:", error);
+    // Handle errors gracefully, e.g., display an error message to the user
+    return []; // Return an empty array in case of error
+  }
+};
+export const fetchYears = async () => {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/api/getreleaseyears"
+    );
+    return response.data; // Assuming the API response contains the years data
+  } catch (error) {
+    console.error("Error fetching years:", error);
+    // Handle errors gracefully, e.g., display an error message to the user
+    return []; // Return an empty array in case of error
+  }
+};
+
+export const getGenreAnalysis = (genre) => {
+  return apiRequest("get", API.genreAnalysis(genre));
 };

@@ -15,9 +15,7 @@ const useGenreAnalysis = (selectedGenre) => {
       setError(null);
       try {
         const response = await getGenreAnalysis(selectedGenre);
-        console.log("API response:", response); // Log para ver la respuesta completa
         const { averageRatingByYear, votosPorRating } = response;
-
         setData(averageRatingByYear);
         setData2(votosPorRating);
       } catch (error) {
