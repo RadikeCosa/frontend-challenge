@@ -1,12 +1,3 @@
-export const genres = [
-  { id: 1, name: "Animation" },
-  { id: 2, name: "Children's" },
-  { id: 3, name: "Comedy" },
-  { id: 4, name: "Action" },
-  { id: 5, name: "Adventure" },
-  { id: 6, name: "Thriller" },
-];
-
 export const years = [
   { id: 1, year: "1995" },
   { id: 2, year: "1996" },

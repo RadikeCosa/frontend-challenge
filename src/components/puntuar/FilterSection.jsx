@@ -1,6 +1,8 @@
+import { useState, useEffect } from "react";
 import FlexibleSelectComponent from "../../components/puntuar/FlexibleSelectComponent";
-import { scores } from "../../helpers/useSearch";
-import { years, genres } from "../../helpers/movieFiltersData";
+const scores = ["0", "1", "2", "3", "4", "5"];
+import { fetchYears, getGenres } from "../../services/api";
+
 const FilterSection = ({
   genero,
   score,
@@ -11,6 +13,19 @@ const FilterSection = ({
   handleNameChange,
   handleYearChange,
 }) => {
+  const [years, setYears] = useState([]); // State to store fetched years data
+  const [genres, setGenres] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const fetchedYears = await fetchYears();
+      const fetchedGenres = await getGenres();
+      setYears(fetchedYears);
+      setGenres(fetchedGenres);
+    };
+
+    fetchData(); // Fetch years data on component mount
+  }, []);
   return (
     <div className="row">
       <div className="col-md-3 mb-3">
